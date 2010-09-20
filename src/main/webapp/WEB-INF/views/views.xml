@@ -8,6 +8,10 @@
   <definition name="index" extends="default">
     <put-attribute name="body" value="/WEB-INF/views/index.jspx" />
   </definition>
+  
+  <definition name="html5-index" extends="html5-default">
+    <put-attribute name="body" value="/WEB-INF/views/index.jspx" />
+  </definition>
 
   <definition name="dataAccessFailure" extends="public">
     <put-attribute name="body" value="/WEB-INF/views/dataAccessFailure.jspx" />

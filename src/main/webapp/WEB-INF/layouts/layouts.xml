@@ -10,6 +10,12 @@
     <put-attribute name="menu" value="/WEB-INF/views/menu.jspx" />
     <put-attribute name="footer" value="/WEB-INF/views/footer.jspx" />
   </definition>
+  
+  <definition name="html5-default" template="/WEB-INF/layouts/html5-default.jspx">
+    <put-attribute name="header" value="/WEB-INF/views/header.jspx" />
+    <put-attribute name="menu" value="/WEB-INF/views/menu.jspx" />
+    <put-attribute name="footer" value="/WEB-INF/views/footer.jspx" />
+  </definition>
 
   <definition name="public" template="/WEB-INF/layouts/default.jspx">
     <put-attribute name="header" value="/WEB-INF/views/header.jspx" />

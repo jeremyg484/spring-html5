@@ -1,0 +1,234 @@
+{namespace views.vets}
+
+/**
+ * Vet form 
+ */
+{template .form}
+<div version="2.0">
+<div id="content" dojoType="dijit.TitlePane" title="Vet" open>
+<form id="vet" action="/spring-html5/vets" method="POST">
+<div id="rangeTest"><label
+	for="_range_id">Range : </label><input id="_range_id" 
+	name="rangeTest" type="number" value="5" min="2" max="20" /><br />
+</div>
+<div id="_c_com_springsource_petclinic_domain_Vet_firstName_id"><label
+	for="_firstName_id">First Name : </label><input id="_firstName_id" 
+	dojoType="dijit.form.ValidationTextBox" promptMessage="Enter First Name" invalidMessage="Please enter valid First Name"
+	name="firstName" type="text" value="" /><br />
+</div>
+<br />
+<div id="_c_com_springsource_petclinic_domain_Vet_lastName_id"><label
+	for="_lastName_id">Last Name : </label><input id="_lastName_id"
+	dojoType="dijit.form.ValidationTextBox" promptMessage="Enter Last Name (required)" invalidMessage="Please enter valid Last Name" required
+	name="lastName" type="text" value="" /><br />
+</div>
+<br />
+<div id="_c_com_springsource_petclinic_domain_Vet_address_id"><label
+	for="_address_id">Address : </label><textarea id="_address_id"
+	dojoType="dijit.form.SimpleTextarea"
+	name="address"></textarea><br />
+</div>
+<br />
+<div id="_c_com_springsource_petclinic_domain_Vet_city_id"><label
+	for="_city_id">City : </label><input id="_city_id" name="city"
+	dojoType="dijit.form.ValidationTextBox" promptMessage="Enter City (required)" invalidMessage="Please enter valid City" required
+	type="text" value="" /><br />
+</div>
+<br />
+<div id="_c_com_springsource_petclinic_domain_Vet_telephone_id"><label
+	for="_telephone_id">Telephone : </label><input id="_telephone_id"
+	dojoType="dijit.form.ValidationTextBox" promptMessage="Enter Telephone (required)" invalidMessage="Please enter valid Telephone" required	
+	name="telephone" type="text" value="" /><br />
+</div>
+<br />
+<div id="_c_com_springsource_petclinic_domain_Vet_homePage_id"><label
+	for="_homePage_id">Home Page : </label><input id="_homePage_id"
+	dojoType="dijit.form.ValidationTextBox" promptMessage="Enter Home Page" invalidMessage="Please enter valid Home Page"
+	name="homePage" type="text" value="" /><br />
+</div>
+<br />
+<div id="_c_com_springsource_petclinic_domain_Vet_email_id"><label
+	for="_email_id">Email : </label><input id="_email_id" name="email"
+	dojoType="dijit.form.ValidationTextBox" promptMessage="Enter Email" invalidMessage="Please enter valid Email"
+	type="text" value="" /><br />
+</div>
+<br />
+<div id="__id"><label for="_birthDay_id">Birth Day : </label><input
+	id="_birthDay_id" name="birthDay" 
+	dojoType="dijit.form.DateTextBox" promptMessage="Enter Birth Day (required)" invalidMessage="Please enter valid Birth Day" required datePattern="M\/d\/yy"
+	type="text" value=""/><br />
+</div>
+<br />
+<div id="__id"><label for="_employedSince_id">Employed Since : </label><input 
+	id="_employedSince_id" name="employedSince" 
+	dojoType="dijit.form.DateTextBox" promptMessage="Enter Employed Since (required)" invalidMessage="Please enter valid Employed Since" required datePattern="M\/d\/yy"
+	type="text" value="" /><br />
+</div>
+<br />
+<div id="_c_com_springsource_petclinic_domain_Vet_specialty_id"><label
+	for="_specialty_id">Specialty : </label><select id="_specialty_id"
+	name="specialty" dojoType="dijit.form.FilteringSelect" hasDownArrow>
+	<option value="Cardiology">Cardiology</option>
+	<option value="Dentistry">Dentistry</option>
+	<option value="Nutrition">Nutrition</option>
+</select><br />
+</div>
+<br />
+<div id="fc_com_springsource_petclinic_domain_Vet_submit" class="submit">
+	<input value="Save" type="submit" id="proceed" />
+</div>
+</form>
+</div>
+{/template}
+
+/**
+ * Vets List
+ * @param model The model to render
+ */
+{template .list}
+<div version="2.0">
+<div id="content" dojoType="dijit.TitlePane" title="List all Vets" open>
+<table>
+	<thead>
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Address</th>
+			<th>City</th>
+			<th>Telephone</th>
+			<th>Home Page</th>
+			<th />
+			<th />
+			<th />
+		</tr>
+	</thead>
+	{foreach $vet in $model}
+	<tr>
+		<td>{$vet.firstName}</td>
+		<td>{$vet.lastName}</td>
+		<td>{$vet.address}</td>
+		<td>{$vet.city}</td>
+		<td>{$vet.telephone}</td>
+		<td>{$vet.homePage}</td>
+		<td><a title="Show Vet" alt="Show Vet"
+			href="/spring-html5/vets/1"><img title="Show Vet"
+			src="/spring-html5/resources/images/show.png" class="image"
+			alt="Show Vet" /></a></td>
+		<td><a title="Update Vet" alt="Update Vet"
+			href="/spring-html5/vets/1?form"><img title="Update Vet"
+			src="/spring-html5/resources/images/update.png" class="image"
+			alt="Update Vet" /></a></td>
+		<td>
+		<form id="command" action="/spring-html5/vets/1" method="post"><input
+			type="hidden" name="_method" value="DELETE" /><input
+			value="Delete Vet" type="image" title="Delete Vet"
+			src="/spring-html5/resources/images/delete.png" class="image"
+			alt="Delete Vet" /><input value="1" type="hidden" name="page" /><input
+			value="10" type="hidden" name="size" /></form>
+		</td>
+	</tr>
+	{/foreach}
+	<tr class="footer">
+		<td colspan="10"><span class="new"><a
+			href="/spring-html5//vets?form"><img title="Create new Vet"
+			src="/spring-html5/resources/images/add.png" alt="Create new Vet" /></a></span>
+		List results per page: <a href="?page=1&amp;size=5">5</a> 10 <a
+			href="?page=1&amp;size=15">15</a> <a href="?page=1&amp;size=20">20</a>
+		<a href="?page=1&amp;size=25">25</a> | Page 1 of 1</td>
+	</tr>
+</table>
+</div>
+</div>
+{/template}
+
+/**
+ * Show Vet
+ * @param model The model to render
+ */
+{template .detail}
+<div version="2.0">
+<div id="content" dojoType="dijit.TitlePane" title="Show Vet" open>
+<div id="_s_com_springsource_petclinic_domain_Vet_firstName_id"><label
+	for="_firstName_id">First Name : </label>
+<div
+	id="_s_com_springsource_petclinic_domain_Vet_firstName_firstName_id"
+	class="box">{$model.firstName}</div>
+</div>
+<br />
+<div id="_s_com_springsource_petclinic_domain_Vet_lastName_id"><label
+	for="_lastName_id">Last Name : </label>
+<div id="_s_com_springsource_petclinic_domain_Vet_lastName_lastName_id"
+	class="box">{$model.lastName}</div>
+</div>
+<br />
+<div id="_s_com_springsource_petclinic_domain_Vet_address_id"><label
+	for="_address_id">Address : </label>
+<div id="_s_com_springsource_petclinic_domain_Vet_address_address_id"
+	class="box">{$model.address}</div>
+</div>
+<br />
+<div id="_s_com_springsource_petclinic_domain_Vet_city_id"><label
+	for="_city_id">City : </label>
+<div id="_s_com_springsource_petclinic_domain_Vet_city_city_id"
+	class="box">{$model.city}</div>
+</div>
+<br />
+<div id="_s_com_springsource_petclinic_domain_Vet_telephone_id"><label
+	for="_telephone_id">Telephone : </label>
+<div
+	id="_s_com_springsource_petclinic_domain_Vet_telephone_telephone_id"
+	class="box">{$model.telephone}</div>
+</div>
+<br />
+<div id="_s_com_springsource_petclinic_domain_Vet_homePage_id"><label
+	for="_homePage_id">Home Page : </label>
+<div id="_s_com_springsource_petclinic_domain_Vet_homePage_homePage_id"
+	class="box">{$model.homePage}</div>
+</div>
+<br />
+<div id="_s_com_springsource_petclinic_domain_Vet_email_id"><label
+	for="_email_id">Email : </label>
+<div id="_s_com_springsource_petclinic_domain_Vet_email_email_id"
+	class="box">{$model.email}</div>
+</div>
+<br />
+<div id="_s_com_springsource_petclinic_domain_Vet_birthDay_id"><label
+	for="_birthDay_id">Birth Day : </label>
+<div id="_s_com_springsource_petclinic_domain_Vet_birthDay_birthDay_id"
+	class="box">{$model.birthDay}</div>
+</div>
+<br />
+<div id="_s_com_springsource_petclinic_domain_Vet_employedSince_id"><label
+	for="_employedSince_id">Employed Since : </label>
+<div
+	id="_s_com_springsource_petclinic_domain_Vet_employedSince_employedSince_id"
+	class="box">{$model.employedSince}</div>
+</div>
+<br />
+<div id="_s_com_springsource_petclinic_domain_Vet_specialty_id"><label
+	for="_specialty_id">Specialty : </label>
+<div
+	id="_s_com_springsource_petclinic_domain_Vet_specialty_specialty_id"
+	class="box">{$model.specialty}</div>
+</div>
+<br />
+<div class="quicklinks"><span>
+<form id="command" action="/spring-html5/vets/1" method="post"><input
+	type="hidden" name="_method" value="DELETE" /><input value="Delete Vet"
+	type="image" title="Delete Vet"
+	src="/spring-html5/resources/images/delete.png" class="image"
+	alt="Delete Vet" /></form>
+</span><span><a title="Update Vet" alt="Update Vet"
+	href="/spring-html5/vets/1?form"><img title="Update Vet"
+	src="/spring-html5/resources/images/update.png" class="image"
+	alt="Update Vet" /></a></span><span><a title="Create new Vet"
+	alt="Create new Vet" href="/spring-html5/vets?form"><img
+	title="Create new Vet" src="/spring-html5/resources/images/create.png"
+	class="image" alt="Create new Vet" /></a></span><span><a title="" alt=""
+	href="/spring-html5/vets"><img title=""
+	src="/spring-html5/resources/images/list.png" class="image" alt="" /></a></span></div>
+</div>
+</div>
+{/template} 
+
+#TODO - Don't forget this validation: <script type="text/javascript">Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:"proceed" event:"onclick"}));</script>

@@ -14,7 +14,7 @@
 		<title><spring:message code="welcome_h3" arguments="${app_name}" /></title>
 	</head>
 	
-  	<body class="tundra spring">
+  	<body class="claro spring">
    		<div id="wrapper">
 		    <tiles:insertAttribute name="header" ignore="true" />
 		    <tiles:insertAttribute name="menu" ignore="true" />   

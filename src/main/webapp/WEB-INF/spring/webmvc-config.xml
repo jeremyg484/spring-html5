@@ -11,22 +11,35 @@
 	<mvc:annotation-driven/>
 	
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources -->
-	<mvc:resources location="classpath:/META-INF/dojo/" mapping="/resources/dojo/**"/>
-	<mvc:resources location="classpath:/META-INF/dijit/" mapping="/resources/dijit/**"/>
-	<mvc:resources location="classpath:/META-INF/spring/" mapping="/resources/spring/**"/>
-	<mvc:resources location="/" mapping="/resources/**"/>
+	<mvc:resources location="classpath:/META-INF/web-resources/, /" mapping="/resources/**" cache-period="2629743"/>
 	
 	<!-- Allows for mapping the DispatcherServlet to "/" by forwarding static resource requests to the container's default Servlet -->
 	<mvc:default-servlet-handler/>
 	
+	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" >
+		<property name="order" value="5" />
+	</bean>
+	
+	<bean name="/cache.manifest" class="org.springframework.web.servlet.resource.CacheManifestHttpRequestHandler">
+		<property name="cachedResources">
+			<array value-type="java.lang.String">
+				<value>/**/*.js</value>
+				<value>/**/*.css</value>
+				<value>/images/*.*</value>
+			</array>
+		</property>
+	</bean>
+	
 	<!-- register "global" interceptor beans to apply to all registered HandlerMappings -->
 	<mvc:interceptors>
+		<bean class="com.springsource.petclinic.web.TemplateRefreshingHandlerInterceptor"/>
 		<bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor"/>
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="lang"/>
 	</mvc:interceptors>
 	
 	<!-- selects a static view for rendering without the need for an explicit controller -->
 	<mvc:view-controller path="/" view-name="index"/>
+	<mvc:view-controller path="/html5-index" />
 	<mvc:view-controller path="/uncaughtException"/>
 	<mvc:view-controller path="/resourceNotFound"/>
 	<mvc:view-controller path="/dataAccessFailure"/>
