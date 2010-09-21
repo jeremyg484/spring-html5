@@ -2,6 +2,7 @@
 
 /**
  * Vet form 
+ * @param? model
  */
 {template .form}
 <div version="2.0">
@@ -14,55 +15,55 @@
 <div id="_c_com_springsource_petclinic_domain_Vet_firstName_id"><label
 	for="_firstName_id">First Name : </label><input id="_firstName_id" 
 	dojoType="dijit.form.ValidationTextBox" promptMessage="Enter First Name" invalidMessage="Please enter valid First Name"
-	name="firstName" type="text" value="" /><br />
+	name="firstName" type="text" value="{$model != null ? $model.firstName : ''}" /><br />
 </div>
 <br />
 <div id="_c_com_springsource_petclinic_domain_Vet_lastName_id"><label
 	for="_lastName_id">Last Name : </label><input id="_lastName_id"
 	dojoType="dijit.form.ValidationTextBox" promptMessage="Enter Last Name (required)" invalidMessage="Please enter valid Last Name" required
-	name="lastName" type="text" value="" /><br />
+	name="lastName" type="text" value="{$model != null ? $model.lastName : ''}" /><br />
 </div>
 <br />
 <div id="_c_com_springsource_petclinic_domain_Vet_address_id"><label
 	for="_address_id">Address : </label><textarea id="_address_id"
 	dojoType="dijit.form.SimpleTextarea"
-	name="address"></textarea><br />
+	name="address" value="{$model != null ? $model.address : ''}"></textarea><br />
 </div>
 <br />
 <div id="_c_com_springsource_petclinic_domain_Vet_city_id"><label
 	for="_city_id">City : </label><input id="_city_id" name="city"
 	dojoType="dijit.form.ValidationTextBox" promptMessage="Enter City (required)" invalidMessage="Please enter valid City" required
-	type="text" value="" /><br />
+	type="text" value="{$model != null ? $model.city : ''}" /><br />
 </div>
 <br />
 <div id="_c_com_springsource_petclinic_domain_Vet_telephone_id"><label
 	for="_telephone_id">Telephone : </label><input id="_telephone_id"
 	dojoType="dijit.form.ValidationTextBox" promptMessage="Enter Telephone (required)" invalidMessage="Please enter valid Telephone" required	
-	name="telephone" type="text" value="" /><br />
+	name="telephone" type="text" value="{$model != null ? $model.telephone : ''}" /><br />
 </div>
 <br />
 <div id="_c_com_springsource_petclinic_domain_Vet_homePage_id"><label
 	for="_homePage_id">Home Page : </label><input id="_homePage_id"
 	dojoType="dijit.form.ValidationTextBox" promptMessage="Enter Home Page" invalidMessage="Please enter valid Home Page"
-	name="homePage" type="text" value="" /><br />
+	name="homePage" type="text" value="{$model != null ? $model.homePage : ''}" /><br />
 </div>
 <br />
 <div id="_c_com_springsource_petclinic_domain_Vet_email_id"><label
 	for="_email_id">Email : </label><input id="_email_id" name="email"
 	dojoType="dijit.form.ValidationTextBox" promptMessage="Enter Email" invalidMessage="Please enter valid Email"
-	type="text" value="" /><br />
+	type="text" value="{$model != null ? $model.email : ''}" /><br />
 </div>
 <br />
 <div id="__id"><label for="_birthDay_id">Birth Day : </label><input
 	id="_birthDay_id" name="birthDay" 
 	dojoType="dijit.form.DateTextBox" promptMessage="Enter Birth Day (required)" invalidMessage="Please enter valid Birth Day" required datePattern="M\/d\/yy"
-	type="text" value=""/><br />
+	type="text" value="{$model != null ? $model.birthDay : ''}"/><br />
 </div>
 <br />
 <div id="__id"><label for="_employedSince_id">Employed Since : </label><input 
 	id="_employedSince_id" name="employedSince" 
 	dojoType="dijit.form.DateTextBox" promptMessage="Enter Employed Since (required)" invalidMessage="Please enter valid Employed Since" required datePattern="M\/d\/yy"
-	type="text" value="" /><br />
+	type="text" value="{$model != null ? $model.employedSince : ''}" /><br />
 </div>
 <br />
 <div id="_c_com_springsource_petclinic_domain_Vet_specialty_id"><label

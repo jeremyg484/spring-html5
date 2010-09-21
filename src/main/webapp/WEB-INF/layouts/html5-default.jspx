@@ -10,6 +10,7 @@
 		<spring:message code="application_name" var="app_name"/>
 		<title><spring:message code="welcome_h3" arguments="${app_name}" /></title>	
 		<util:load-scripts />
+		<style> :invalid { background-color: red; } </style>
 		<script type="text/javascript" language="JavaScript" src="templates/soyutils.js"><!-- required for FF3 and Opera --></script>
 		<script type="text/javascript" language="JavaScript" src="templates/template.js"><!-- required for FF3 and Opera --></script>
 		
@@ -25,7 +26,7 @@
 						var resultHandler = this.load;
 						var onload = (!callback ? function(){} : callback); 
 						var deferred = dojo.xhrGet({
-							url : url,
+							url : url.match(/.*[^\?form]/)[0],
 
 							preventCache : true,
 
@@ -63,7 +64,9 @@
 						}
 						if (url.search(/\?form/) > -1) {
 							template = template["form"];
-							view.requiresModel = false;
+							if(!hasIdentifier) {
+								view.requiresModel = false;
+							}
 						} else if(hasIdentifier){
 							template = template["detail"];
 						} else {
@@ -99,7 +102,7 @@
 								});
 							});
 						} else {
-							var content = view.template.apply(window);
+							var content = view.template.apply(window, [{}]);
 							dojo.html.set(main, content, {parseContent:true, 
 								onBegin: function(){
 									var existing = dijit.byId("content");
