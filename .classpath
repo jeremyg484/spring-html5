@@ -4,7 +4,7 @@
   <classpathentry kind="src" path="src/main/java" including="**/*.java|**/*.aj"/>
   <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
   <classpathentry kind="output" path="target/classes"/>
-  <classpathentry kind="var" path="M2_REPO/javax/el/el-api/1.0/el-api-1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javax/el/el-api/1.0/el-api-1.0.jar" sourcepath="M2_REPO/javax/el/el-api/1.0/el-api-1.0-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar" sourcepath="M2_REPO/javax/annotation/jsr250-api/1.0/jsr250-api-1.0-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/javax/servlet/jstl/1.2/jstl-1.2.jar" sourcepath="M2_REPO/javax/servlet/jstl/1.2/jstl-1.2-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/javax/transaction/jta/1.1/jta-1.1.jar" sourcepath="M2_REPO/javax/transaction/jta/1.1/jta-1.1-sources.jar"/>
@@ -15,7 +15,7 @@
   <classpathentry kind="var" path="M2_REPO/org/atmosphere/atmosphere-compat-jbossweb/0.7-SNAPSHOT/atmosphere-compat-jbossweb-0.7-SNAPSHOT.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/atmosphere/atmosphere-compat-tomcat/0.7-SNAPSHOT/atmosphere-compat-tomcat-0.7-SNAPSHOT.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/atmosphere/atmosphere-compat-weblogic/0.7-SNAPSHOT/atmosphere-compat-weblogic-0.7-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/atmosphere/atmosphere-runtime/0.7-SNAPSHOT/atmosphere-runtime-0.7-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/atmosphere/atmosphere-runtime/0.7-SNAPSHOT/atmosphere-runtime-0.7-SNAPSHOT.jar" sourcepath="M2_REPO/org/atmosphere/atmosphere-runtime/0.7-SNAPSHOT/atmosphere-runtime-0.7-SNAPSHOT-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/cglib/cglib-nodep/2.2/cglib-nodep-2.2.jar" sourcepath="M2_REPO/cglib/cglib-nodep/2.2/cglib-nodep-2.2-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/google/closure/closure-templates/20100708/closure-templates-20100708.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar" sourcepath="M2_REPO/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0-sources.jar"/>

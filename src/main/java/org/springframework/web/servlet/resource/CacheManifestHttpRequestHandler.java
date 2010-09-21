@@ -11,6 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,11 @@ public class CacheManifestHttpRequestHandler extends WebContentGenerator impleme
 	
 	private static final MediaType CONTENT_TYPE = new MediaType("text","cache-manifest", Charset.forName("UTF-8"));
 	
+	//TODO - This is a crude way of handling Chrome's duplicate request - 
+	//could be improved later with a configurable refresh period, but since this is 
+	//intended to be a development-time setting, this might be good enough
+	//private AtomicBoolean expired = new AtomicBoolean(true);
+	
 	private boolean alwaysRegenerate = false;
 	
 	private List<Resource> cachedResources;
@@ -46,6 +52,9 @@ public class CacheManifestHttpRequestHandler extends WebContentGenerator impleme
 	
 	public CacheManifestHttpRequestHandler() {
 		super(METHOD_GET, METHOD_HEAD);
+		//if (alwaysRegenerate) {
+		//	setCacheSeconds(5);
+		//}
 	}
 	
 	public void handleRequest(HttpServletRequest request,
@@ -73,7 +82,11 @@ public class CacheManifestHttpRequestHandler extends WebContentGenerator impleme
 		//TODO - Implement handling for NETWORK and FALLBACK sections of manifest
 		String key = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
 		CacheManifest manifest = store.get(key);
-		if (manifest != null && manifest.getHash().equals(getHash())) {
+		if (manifest != null && alwaysRegenerate && (manifest.getTimestamp() + 5000L) >= new Date().getTime()) {
+			return manifest;
+		}
+		String hash = getHash();
+		if (manifest != null && manifest.getHash().equals(hash)) {
 			return manifest;
 		}
 		
@@ -88,8 +101,7 @@ public class CacheManifestHttpRequestHandler extends WebContentGenerator impleme
 		}
 		writer.println(NETWORK_SECTION);
 		writer.println("*");
-		String hash = getHash();
-		writer.println("#SHA-1: "+getHash());
+		writer.println("#SHA-1: "+hash);
 		writer.flush();
 		writer.close();
 		
@@ -147,5 +159,9 @@ public class CacheManifestHttpRequestHandler extends WebContentGenerator impleme
 	        }
 	        return result;
 	    }
+	}
+
+	public void setAlwaysRegenerate(boolean alwaysRegenerate) {
+		this.alwaysRegenerate = alwaysRegenerate;
 	}
 }

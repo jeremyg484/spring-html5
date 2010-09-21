@@ -25,12 +25,7 @@ public class SoyConfigurationTests {
 	@Test
 	public void testTemplateRender() throws IOException {
 		SoyTofu tofu = soyConfig.soyTofu();
-		System.out.println(tofu.render("examples.simple.helloWorld", (SoyMapData) null, null));
-	}
-	
-	@Test
-	public void testJsTemplateGeneration() throws IOException {
-		System.out.println(soyConfig.soyJavaScript());
+		//System.out.println(tofu.render("examples.simple.helloWorld", (SoyMapData) null, null));
 	}
 	
 	private static final class TestResourceResolver extends PathMatchingResourcePatternResolver {

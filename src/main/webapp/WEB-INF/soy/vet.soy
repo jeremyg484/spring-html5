@@ -6,12 +6,12 @@
  */
 {template .form}
 <div version="2.0">
-<div id="content" dojoType="dijit.TitlePane" title="Vet" open>
+<div id="content" dojoType="dijit.TitlePane" title="Vet" open=false>
 <form id="vet" action="/spring-html5/vets" method="POST">
-<div id="rangeTest"><label
+<!--<div id="rangeTest"><label
 	for="_range_id">Range : </label><input id="_range_id" 
 	name="rangeTest" type="number" value="5" min="2" max="20" /><br />
-</div>
+</div>-->
 <div id="_c_com_springsource_petclinic_domain_Vet_firstName_id"><label
 	for="_firstName_id">First Name : </label><input id="_firstName_id" 
 	dojoType="dijit.form.ValidationTextBox" promptMessage="Enter First Name" invalidMessage="Please enter valid First Name"
@@ -88,7 +88,7 @@
  */
 {template .list}
 <div version="2.0">
-<div id="content" dojoType="dijit.TitlePane" title="List all Vets" open>
+<div id="content" dojoType="dijit.TitlePane" title="List all Vets" open=false>
 <table>
 	<thead>
 		<tr>
@@ -148,7 +148,7 @@
  */
 {template .detail}
 <div version="2.0">
-<div id="content" dojoType="dijit.TitlePane" title="Show Vet" open>
+<div id="content" dojoType="dijit.TitlePane" title="Show Vet" open=false>
 <div id="_s_com_springsource_petclinic_domain_Vet_firstName_id"><label
 	for="_firstName_id">First Name : </label>
 <div

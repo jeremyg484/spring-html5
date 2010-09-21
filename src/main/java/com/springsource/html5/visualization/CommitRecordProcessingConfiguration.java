@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.integration.MessageChannel;
 
-//@Configuration
+@Configuration
 public class CommitRecordProcessingConfiguration implements ResourceLoaderAware{
 
 	private ResourceLoader resourceLoader;
@@ -33,7 +33,7 @@ public class CommitRecordProcessingConfiguration implements ResourceLoaderAware{
 	
 	@Bean
 	public ItemWriter<CommitRecord> commitRecordWriter() {
-		MessageSendingItemWriter<CommitRecord> writer = new MessageSendingItemWriter<CommitRecord>(commitRecordChannel);
+		CommitRecordItemWriter writer = new CommitRecordItemWriter(commitRecordChannel);
 		return writer;
 	}
 

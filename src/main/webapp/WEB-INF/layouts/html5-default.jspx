@@ -98,6 +98,7 @@
 												}
 											});
 										});
+										dijit.byId("content").toggle();
 									}
 								});
 							});
@@ -109,7 +110,22 @@
 									if (existing) {
 										existing.destroyRecursive();
 									}
+								},
+								onEnd: function(){
+									this.inherited("onEnd", arguments);
+									dojo.query("#content a").forEach(function(navItem) {
+										dojo.connect(navItem, "onclick", function(e) {
+											var main = dojo.byId("main");
+											var view = controller.getView(navItem.href);
+											if (view) {
+												dojo.stopEvent(e);
+												controller.renderView(view, navItem.href);
+											}
+										});
+									});
+									dijit.byId("content").toggle();
 								}
+								
 							});
 						}
 						if(location.href != url) {
