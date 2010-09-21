@@ -1,4 +1,4 @@
-<html xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:tiles="http://tiles.apache.org/tags-tiles" xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util">  
+<html xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:tiles="http://tiles.apache.org/tags-tiles" xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" manifest="cache.manifest">  
 	
 	<jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
 	
@@ -19,34 +19,25 @@
 			dojo.require("dijit.form.FilteringSelect");
 			dojo.require("dijit.form.Form");
 			dojo.addOnLoad(function(){
-				dojo.declare("Model", null, {
-					data : null,
-					
-					constructor : function(url, callback) {
-						var resultHandler = this.load;
-						var onload = (!callback ? function(){} : callback); 
-						var deferred = dojo.xhrGet({
+				
+				var controller = {
+					basePath : location.protocol + "//" + location.host + "/" + (location.pathname.search(/spring-html5/) > -1 ? "spring-html5/" : ""), 
+
+					getModel : function(url) {
+						return dojo.xhrGet({
 							url : url.match(/.*[^\?form]/)[0],
-
+	
 							preventCache : true,
-
+	
 							handleAs : "json",
-
+	
 							headers : {
 								"Content-Type": "application/json",
 								"Accept": "application/json"
 							}
 						});
-						var that = this;
-						deferred.addCallback(function(result){
-							that.data = result;
-							onload();
-						});
-					}
-				});
-				
-				var controller = {
-					basePath : location.protocol + "//" + location.host + "/" + (location.pathname.search(/spring-html5/) > -1 ? "spring-html5/" : ""), 
+					},
+
 					getView : function(url) {
 						var view = { requiresModel : true };
 						var hasIdentifier = false;
@@ -75,35 +66,11 @@
 						view.template = template;
 						return dojo.isFunction(view.template) ? view : null;
 					},
+					
 					renderView : function(view, url) {
-						if (view.requiresModel) {
-							var model = new Model(url, function(){
-								var content = view.template.apply(window, [{model : model.data}]);
-								dojo.html.set(main, content, {parseContent:true, 
-									onBegin: function(){
-										var existing = dijit.byId("content");
-										if (existing) {
-											existing.destroyRecursive();
-										}
-									},
-									onEnd: function(){
-										this.inherited("onEnd", arguments);
-										dojo.query("#content a").forEach(function(navItem) {
-											dojo.connect(navItem, "onclick", function(e) {
-												var main = dojo.byId("main");
-												var view = controller.getView(navItem.href);
-												if (view) {
-													dojo.stopEvent(e);
-													controller.renderView(view, navItem.href);
-												}
-											});
-										});
-										dijit.byId("content").toggle();
-									}
-								});
-							});
-						} else {
-							var content = view.template.apply(window, [{}]);
+						var model = view.requiresModel ? controller.getModel(url) : null;
+						dojo.when(model, function(model){
+							var content = view.template.apply(window, [{model : model}]);
 							dojo.html.set(main, content, {parseContent:true, 
 								onBegin: function(){
 									var existing = dijit.byId("content");
@@ -123,16 +90,18 @@
 											}
 										});
 									});
+									
 									dijit.byId("content").toggle();
 								}
-								
 							});
-						}
+						});
+						
 						if(location.href != url) {
-							history.pushState({}, "", url);
+							history.pushState({}, "view", url);
 						}
 					}
 				};
+				
 				dojo.query("a.menuItem").forEach(function(menuItem) {
 					dojo.connect(menuItem, "onclick", function(e) {
 						var main = dojo.byId("main");
@@ -143,6 +112,7 @@
 						}
 					});
 				});
+				
 				dojo.connect(window, "onpopstate", function(e){
 					if(location.href.search(/html5-index/) > -1) {
 						location.reload();

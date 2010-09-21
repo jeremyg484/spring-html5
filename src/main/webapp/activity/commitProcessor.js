@@ -11,6 +11,7 @@ function start(offline) {
 	var connectionFailed = false;
 	var messagesReceived = false;
 	if (!self.WebSocket || offline) {
+		postMessage("Reverting to cached data.js");
 		importScripts("data.js");
 		data.reverse();
 		for ( var i = 0; i < data.length; i++) {
@@ -48,9 +49,6 @@ function start(offline) {
 		}
 		socket.onclose = function(event) {
 			postMessage("Connection to "+messageChannelUrl+" was closed.");
-			if (connectionFailed && !messagesReceived) {
-				postMessage("Reverting to cached data.js");
-			}
 			start(true);
 		}
 	}

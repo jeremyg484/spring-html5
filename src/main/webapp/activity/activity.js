@@ -8,7 +8,7 @@ Array.prototype.remove = function(from, to) {
 
 jQuery(function($) {
 	var el = document.getElementById("glow");
-	var frameRate = 30;
+	var frameRate = 45;
 	//var speed = 5; // average # of messages per second
 	var width = el.width;
 	var height = el.height;
@@ -47,7 +47,7 @@ jQuery(function($) {
 				}
 				p.noStroke();
 				whiteText("overall activity", 20, fontSize * 1.5);
-				whiteText("module", width - font.width("module") * fontSize
+				whiteText("author", width - font.width("author") * fontSize
 						* 1.5, bottom + height / 10 + fontSize * 1.2);
 			}
 		}
@@ -55,7 +55,7 @@ jQuery(function($) {
 	components.push(new Axes());
 
 	var Circle = function Circle(height, author) {
-		var maxAge = 100;
+		var maxAge = 50;
 		var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ.".split("");
 		var x = 0;
 		for ( var i = 0; i < 3; i++)
@@ -124,43 +124,11 @@ jQuery(function($) {
 		return t;
 	}
 
-	/*var Glow = function Glow(commits) {
-	  var mindate = commits[0].date.getTime();
-	  var maxdate = mindate + commits[commits.length - 1].date.getTime();
-	  var frames = commits.length * frameRate / speed;
-	  var datedelta = (maxdate - mindate) / frames;
-	  var frame = 0;
-	  return {
-	    update: function () {
-	      frame++;
-	      var d = mindate + frame * datedelta;
-	      var last = null;
-	      while (commits.length > 0 && commits[0].date.getTime() <= d) {
-	        var c = commits.shift();
-	        if (!last || last.module != c.module || last.date.getTime() != c.date.getTime()) {
-	      	  last = c;
-	      	  console.debug("Pushing circle for " + c.module + " at " + c.date.getTime());
-	      	  components.push(new Circle(components.length, c.module));
-	        }
-	      }
-	      if (frame % 5 == 0)
-	        $("#date").html(formatDate(new Date(d)) + "<br/>" + formatTime(new Date(d)));
-	    },
-	    draw: function () {
-	      p.background(0, 15);
-	    }
-	  };
-	};*/
-
 	var Glow = function Glow() {
 		return {
 			update : function() {
 				var c = commits.shift();
 				if (c) {
-					/*if (window.console) {
-						console.debug("Pushing circle #"+c.order+" for " + c.module + " at "
-								+ c.date.getTime());
-					}*/
 					components.push(new Circle(components.length, c.author));
 					$("#date").html(
 							formatDate(c.date) + "<br/>" + formatTime(c.date));
@@ -168,7 +136,6 @@ jQuery(function($) {
 			},
 			draw : function() {
 				p.background(0, 15);
-				//p.background(0, 0, 0, 100);
 			}
 		};
 	};
