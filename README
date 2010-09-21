@@ -1,3 +1,49 @@
 Experimental Spring extensions and demos of HTML5 feature support.
 
-More info to come...
+This sample project is a playground for experimentation with server-side Spring tools intended to aid in taking full advantage of the new rich
+features available natively in modern browsers and considered part of HTML5.  (In this context, we refer to HTML5 as this overal collection of 
+new technologies, many of which are defined in their own specification peripheral to the actual W3C HTML5 specification.)
+
+These samples will continually evolve as we explore new and interesting ways of utilizing the features of HTML5 to build a new breed of rich 
+web applications.
+
+Some of the current experiments include:
+
+- Support for dynamically generating a cache manifest file as required for the offline application cache
+
+- Moving the act of template rendering to the browser (using the Closure Tools Templating library), where the browser just consumes a 
+  JSON model from a RESTful endpoint and provides that model to the template for rendering.
+
+- Incorporation of the Closure Tools Templating library's Java API for automatic refreshing of templates at development time, allowing 
+quick prototyping without requiring full redeployment.
+
+- Examples of using the history.pushstate API and window.popstate event to handle in browser navigation with clean bookmarkable URLs
+
+- An Atmosphere adapter for Spring Integration that is used to push messages to the browser over WebSocket
+
+- Use of the WebWorker API to offload the handling of streaming WebSocket data to a seperate sandboxed thread
+
+- Visualization of streaming WebSocket data in Canvas via the help of the Processing.js library
+
+BUILDING AND RUNNING THE SAMPLE: 
+
+The application uses a straightforward Maven build.  We currently use Maven 2.2.0.
+
+Before building for the first time, you must install the Closure Tools Templating library jar into your local Maven repository using 
+the following command:
+mvn install:install-file -Dfile=soy-20100708.jar -DgroupId=com.google.closure -DartifactId=closure-templates -Dversion=20100708 -Dpackaging=jar
+
+Once the required dependency has been installed, you can build and run the application using:
+mvn -DskipTests=true install jetty:run
+(Jetty 8.0.M1 is currently the only server verified to provide the necessary handling for the WebSocket demo)
+
+Once the server is up and running, the standard Spring Roo Petclinic functionality upon which some of the experiments are based can be accessed at:
+http://localhost:8080/spring-html5/
+
+The modified index page that uses the Application Cache and does client-side rendering of Closure Tools templates (currently only for the 
+Vet pages) can be accessed at:
+http://localhost:8080/spring-html5/html5-index
+
+The WebSocket + Canvas visualization demo can be accessed at:
+http://localhost:8080/spring-html5/activity/Activity.html
+
